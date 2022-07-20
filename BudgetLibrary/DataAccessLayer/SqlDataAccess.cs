@@ -127,9 +127,9 @@ namespace BudgetLibrary.DataAccessLayer
                     {
                         connection.Open();
 
-                        //cmd.CommandType = CommandType.StoredProcedure;
-                        //cmd.Parameters.AddRange(storedProcedure.ParameterList.ToArray());
-                        //cmd.ExecuteNonQuery();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddRange(storedProcedure.ParameterList.ToArray());
+                        cmd.ExecuteNonQuery();
                     }
                 }
             }

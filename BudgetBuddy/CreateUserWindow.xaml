@@ -47,7 +47,7 @@
         <TextBlock Grid.Row="5" Grid.Column="1" Margin="40 10 10 5"
                    Text="Your Budgets"></TextBlock>
 
-        <ListBox Grid.Row="6" Grid.Column="1" x:Name="selectedBudgetsComboBox" MinHeight="100" Margin="40 10 10 5">
+        <ListBox Grid.Row="6" Grid.Column="1" x:Name="selectedBudgetsListBox" MinHeight="100" Margin="40 10 10 5">
         </ListBox>
 
         <Button Grid.Row="6" Grid.Column="2" x:Name="removeSelectedBudget" Click="removeSelectedBudget_Click"

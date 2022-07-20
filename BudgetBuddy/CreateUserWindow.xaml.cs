@@ -2,11 +2,8 @@
 using BudgetLibrary.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -69,20 +66,20 @@ namespace BudgetBuddy
         {
             if (budgetNameToAddTextBox.Text.Length > 0)
             {
-                selectedBudgetsComboBox.ItemsSource = null;
+                selectedBudgetsListBox.ItemsSource = null;
                 selectedBudgets.Add(budgetNameToAddTextBox.Text);
-                selectedBudgetsComboBox.ItemsSource = selectedBudgets;
+                selectedBudgetsListBox.ItemsSource = selectedBudgets;
                 budgetNameToAddTextBox.Clear();
             }
         }
 
         private void removeSelectedBudget_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedBudgetsComboBox.SelectedItem != null)
+            if (selectedBudgetsListBox.SelectedItem != null)
             {
-                selectedBudgets.Remove(selectedBudgetsComboBox.SelectedItem.ToString());
-                selectedBudgetsComboBox.ItemsSource = null;
-                selectedBudgetsComboBox.ItemsSource = selectedBudgets;
+                selectedBudgets.Remove(selectedBudgetsListBox.SelectedItem.ToString());
+                selectedBudgetsListBox.ItemsSource = null;
+                selectedBudgetsListBox.ItemsSource = selectedBudgets;
             }
         }
 
@@ -95,7 +92,7 @@ namespace BudgetBuddy
                 MessageBox.Show("Please fill out the new username.", "Form Error");
                 output = false;
             }
-            if (UserNameAlreadyUsed())
+            if (UserNameAlreadyExists())
             {
                 MessageBox.Show("Username already in use. Please try another username.", "New User Error");
                 output = false;
@@ -104,7 +101,7 @@ namespace BudgetBuddy
             return output;
         }
 
-        private bool UserNameAlreadyUsed()
+        private bool UserNameAlreadyExists()
         {
             bool output = false;
             List<string> userNames = new List<string>();

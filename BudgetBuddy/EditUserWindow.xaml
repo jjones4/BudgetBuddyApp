@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BudgetBuddy"
         mc:Ignorable="d"
-        Title="EditUserWindow" Height="450" Width="800">
+        Title="Edit User" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -30,9 +30,15 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="40 10 10 5"
-                   Text="User: tcorey"></TextBlock>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <TextBlock Margin="40 10 10 5">Username: </TextBlock>
+            
+            <TextBlock x:Name="userNameTextBlock"  
+                   Margin="40 10 10 5"></TextBlock>
 
+        </StackPanel>
+        
+        
         <TextBlock Grid.Row="1" Grid.Column="2" Margin="40 10 10 5">
             <Hyperlink x:Name="editUserNameLink" Click="editUserNameLink_Click">
                     Edit User Name
@@ -42,12 +48,13 @@
         <TextBlock Grid.Row="2" Grid.Column="1" Margin="40 10 10 5"
                    Text="Select a budget to edit its name."></TextBlock>
 
-        <ComboBox Grid.Row="4" Grid.Column="1" Margin="40 5 10 5">
+        <ComboBox x:Name="userBudgetsComboBox" Grid.Row="4" Grid.Column="1"
+                  Margin="40 5 10 5">
         </ComboBox>
 
         <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal">
             <TextBlock Margin="40 10 10 5">
-            <Hyperlink x:Name="editBudgetNameLink" Click="editUserNameLink_Click">
+            <Hyperlink x:Name="editBudgetNameLink" Click="editBudgetNameLink_Click">
                     Edit Budget Name
                 </Hyperlink>
             </TextBlock>
@@ -62,18 +69,23 @@
         <TextBlock Grid.Row="5" Grid.Column="1" Margin="40 10 10 5"
                    Text="Type a budget name to add"></TextBlock>
 
-        <TextBox Grid.Row="6" Grid.Column="1" Margin="40 5 10 5"></TextBox>
+        <TextBox x:Name="addBudgetToListTextBox" Grid.Row="6" Grid.Column="1" Margin="40 5 10 5"></TextBox>
 
-        <Button Grid.Row="6" Grid.Column="2" MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" Margin="20 5 5 5">
+        <Button x:Name="addBudgetToListButton" Grid.Row="6" Grid.Column="2"
+                Click="addBudgetToListButton_Click" 
+                MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" Margin="20 5 5 5">
             Add Budget</Button>
 
         <TextBlock Grid.Row="7" Grid.Column="1" Margin="40 10 10 5"
                    Text="Your Budgets"></TextBlock>
 
-        <ListBox Grid.Row="8" Grid.Column="1" MinHeight="100" Margin="40 10 10 5">
+        <ListBox x:Name="budgetsToAddListBox" Grid.Row="8" Grid.Column="1" MinHeight="100" Margin="40 10 10 5">
         </ListBox>
 
-        <Button Grid.Row="8" Grid.Column="2" MinWidth="100" MaxWidth="100" MaxHeight="21" HorizontalAlignment="Left" Margin="20 5 5 5">
+        <Button x:Name="removeSelectedBudgetButton" Grid.Row="8" Grid.Column="2" 
+                Click="removeSelectedBudgetButton_Click"
+                MinWidth="100" MaxWidth="100" MaxHeight="21" HorizontalAlignment="Left"
+                Margin="20 5 5 5">
             Remove Selected</Button>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"

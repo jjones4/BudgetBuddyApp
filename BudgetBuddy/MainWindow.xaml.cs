@@ -49,8 +49,15 @@ namespace BudgetBuddy
 
         private void editUserLink_Click(object sender, RoutedEventArgs e)
         {
-            UserListWindow userList = new UserListWindow();
-            userList.Show();
+            if (IsValidUserName())
+            {
+                EditUserWindow editUser = new EditUserWindow();
+                editUser.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to edit.", "Username Error");
+            }
         }
 
         private void removeUserLink_Click(object sender, RoutedEventArgs e)
@@ -59,7 +66,7 @@ namespace BudgetBuddy
             userList.Show();
         }
 
-        private void FillUsersComboBox()
+        public void FillUsersComboBox()
         {
             List<UserModel> users = new List<UserModel>();
             List<string> userNames = new List<string>();
@@ -81,15 +88,19 @@ namespace BudgetBuddy
             List<string> budgetNames = new List<string>();
 
             SqlData data = new SqlData(config);
-            budgets = data.GetAllUserBudgetNames(selectedUserNameComboBox.SelectedItem.ToString())
+
+            if (selectedUserNameComboBox.SelectedItem != null)
+            {
+                budgets = data.GetAllUserBudgetNames(selectedUserNameComboBox.SelectedItem.ToString())
                           .OrderBy(x => x.NameOfBudget).ToList();
 
-            foreach (BudgetModel b in budgets)
-            {
-                budgetNames.Add(b.NameOfBudget);
-            }
+                foreach (BudgetModel b in budgets)
+                {
+                    budgetNames.Add(b.NameOfBudget);
+                }
 
-            selectedBudgetComboBox.ItemsSource = budgetNames;
+                selectedBudgetComboBox.ItemsSource = budgetNames;
+            }
         }
 
         private bool IsValidForm()
@@ -105,6 +116,18 @@ namespace BudgetBuddy
             }
 
             if (selectedBudgetComboBox.Text.Length < 1)
+            {
+                output = false;
+            }
+
+            return output;
+        }
+
+        private bool IsValidUserName()
+        {
+            bool output = true;
+
+            if (selectedUserNameComboBox.Text.Length < 1)
             {
                 output = false;
             }

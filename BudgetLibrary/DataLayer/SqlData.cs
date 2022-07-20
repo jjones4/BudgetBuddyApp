@@ -36,6 +36,41 @@ namespace BudgetLibrary.DataLayer
             db.RunStoredProcedure_Create(storedProcedure);
         }
 
+        public void UpdateUserName(string newUserName, string oldUserName)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spUsers_UpdateUserName",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = newUserName },
+                    new SqlParameter("@OldUserName", SqlDbType.NVarChar) { Value = oldUserName}
+                }
+            };
+
+            db.RunStoredProcedure_Update(storedProcedure);
+        }
+
+        public void UpdateBudgetName(string newBudgetName, string oldBudgetName, string userName)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spBudgets_UpdateBudgetName",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = userName },
+                    new SqlParameter("@BudgetName", SqlDbType.NVarChar) { Value = newBudgetName },
+                    new SqlParameter("@OldBudgetName", SqlDbType.NVarChar) { Value = oldBudgetName}
+                }
+            };
+
+            db.RunStoredProcedure_Update(storedProcedure);
+        }
+
         public void CreateNewUserBudget(string userName, List<string> selectedBudgets)
         {
             SqlDataAccess db = new SqlDataAccess(_config);
