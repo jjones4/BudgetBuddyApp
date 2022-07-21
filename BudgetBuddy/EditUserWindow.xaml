@@ -60,7 +60,7 @@
             </TextBlock>
             
             <TextBlock Margin="40 10 10 5">
-            <Hyperlink x:Name="removeLink" Click="editUserNameLink_Click">
+            <Hyperlink x:Name="removeBudgetLink" Click="removeBudgetLink_Click">
                     Remove Budget
                 </Hyperlink>
             </TextBlock>
@@ -77,7 +77,7 @@
             Add Budget</Button>
 
         <TextBlock Grid.Row="7" Grid.Column="1" Margin="40 10 10 5"
-                   Text="Your Budgets"></TextBlock>
+                   Text="Your New Budgets"></TextBlock>
 
         <ListBox x:Name="budgetsToAddListBox" Grid.Row="8" Grid.Column="1" MinHeight="100" Margin="40 10 10 5">
         </ListBox>
@@ -90,8 +90,8 @@
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"
                     Grid.Column="1" Grid.Row="9" Margin="35 10 10 10">
-            <Button x:Name="saveUserButton" Click="saveUserButton_Click" MinWidth="60" MaxWidth="60"
-                    Margin="10">SAVE</Button>
+            <Button x:Name="saveNewBudgets" Click="saveNewBudgets_Click" MinWidth="130" MaxWidth="130"
+                    Margin="10">SAVE NEW BUDGETS</Button>
             <Button x:Name="cancelButton" Click="cancelButton_Click" MinWidth="60" MaxWidth="60"
                     Margin="10">CANCEL</Button>
         </StackPanel>

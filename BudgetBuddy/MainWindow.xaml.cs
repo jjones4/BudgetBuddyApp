@@ -62,8 +62,15 @@ namespace BudgetBuddy
 
         private void removeUserLink_Click(object sender, RoutedEventArgs e)
         {
-            UserListWindow userList = new UserListWindow();
-            userList.Show();
+            if (IsValidUserName())
+            {
+                RemoveUserWindow removeUser = new RemoveUserWindow();
+                removeUser.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to remove.", "User Selection Error");
+            }
         }
 
         public void FillUsersComboBox()
@@ -91,7 +98,7 @@ namespace BudgetBuddy
 
             if (selectedUserNameComboBox.SelectedItem != null)
             {
-                budgets = data.GetAllUserBudgetNames(selectedUserNameComboBox.SelectedItem.ToString())
+                budgets = data.GetAllUserBudgets(selectedUserNameComboBox.SelectedItem.ToString())
                           .OrderBy(x => x.NameOfBudget).ToList();
 
                 foreach (BudgetModel b in budgets)
@@ -100,6 +107,31 @@ namespace BudgetBuddy
                 }
 
                 selectedBudgetComboBox.ItemsSource = budgetNames;
+            }
+        }
+
+        public void UpdateBudgetsList()
+        {
+            List<BudgetModel> budgets = new List<BudgetModel>();
+            List<string> budgetNames = new List<string>();
+
+            SqlData data = new SqlData(config);
+
+            if (selectedUserNameComboBox.SelectedItem != null)
+            {
+                budgets = data.GetAllUserBudgets(selectedUserNameComboBox.SelectedItem.ToString())
+                          .OrderBy(x => x.NameOfBudget).ToList();
+
+                foreach (BudgetModel b in budgets)
+                {
+                    budgetNames.Add(b.NameOfBudget);
+                }
+
+                selectedBudgetComboBox.ItemsSource = budgetNames;
+            }
+            else
+            {
+                selectedBudgetComboBox.ItemsSource = null;
             }
         }
 

@@ -57,7 +57,7 @@ namespace BudgetBuddy
             this.Close();
         }
 
-        private void PopulateUserInfo()
+        public void PopulateUserInfo()
         {
             userNameTextBlock.Text =
                 ((MainWindow)Application.Current.MainWindow).selectedUserNameComboBox.Text;
@@ -108,7 +108,7 @@ namespace BudgetBuddy
             }
 
             SqlData data = new SqlData(config);
-            List<BudgetModel> budgets = data.GetAllUserBudgetNames(userNameTextBlock.Text);
+            List<BudgetModel> budgets = data.GetAllUserBudgets(userNameTextBlock.Text);
 
             foreach (var budget in budgets)
             {
@@ -121,6 +121,37 @@ namespace BudgetBuddy
             }
 
             return output;
+        }
+
+        private void removeBudgetLink_Click(object sender, RoutedEventArgs e)
+        {
+            if (userBudgetsComboBox.SelectedItem != null)
+            {
+                string oldBudgetName = userBudgetsComboBox.Text;
+
+                SqlData data = new SqlData(config);
+
+                data.DeleteBudget(userNameTextBlock.Text, userBudgetsComboBox.SelectedItem.ToString());
+
+                ((MainWindow)Application.Current.MainWindow).UpdateBudgetsList();
+
+                PopulateUserInfo();
+
+                MessageBox.Show($"Budget { oldBudgetName } successfully removed!", "Budget Removal");
+            }
+        }
+
+        private void saveNewBudgets_Click(object sender, RoutedEventArgs e)
+        {
+            SqlData data = new SqlData(config);
+
+            data.CreateNewUserBudget(userNameTextBlock.Text, selectedBudgets);
+
+            ((MainWindow)Application.Current.MainWindow).UpdateBudgetsList();
+
+            PopulateUserInfo();
+
+            MessageBox.Show($"Budgets added successfully!", "Budget Addition");
         }
     }
 }

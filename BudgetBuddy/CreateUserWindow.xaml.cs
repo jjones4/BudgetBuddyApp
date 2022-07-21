@@ -40,6 +40,8 @@ namespace BudgetBuddy
                 {
                     data.CreateNewUser(userNameToAddTextBox.Text);
 
+                    ((MainWindow)Application.Current.MainWindow).FillUsersComboBox();
+
                     MessageBox.Show("User Added Successfully!", "New User");
                 }
                 // If the user added some budgets, we need to perform
@@ -49,6 +51,9 @@ namespace BudgetBuddy
                     data.CreateNewUser(userNameToAddTextBox.Text);
 
                     data.CreateNewUserBudget(userNameToAddTextBox.Text, selectedBudgets);
+
+                    ((MainWindow)Application.Current.MainWindow).FillUsersComboBox();
+                    ((MainWindow)Application.Current.MainWindow).UpdateBudgetsList();
 
                     MessageBox.Show("User Added Successfully!", "New User");
                 }

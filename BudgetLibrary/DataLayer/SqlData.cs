@@ -120,7 +120,40 @@ namespace BudgetLibrary.DataLayer
             return users;
         }
 
-        public List<BudgetModel> GetAllUserBudgetNames(string selectedUser)
+        public List<TemplateModel> GetAllUserTemplates(string selectedUser)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+            List<TemplateModel> userTemplates = new List<TemplateModel>();
+            Object[] objects;
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spTemplates_GetTemplatesByUserName",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = selectedUser }
+                }
+            };
+
+            objects = db.RunStoredProcedure_Read(storedProcedure);
+
+            int counter = 0;
+            foreach (var item in objects)
+            {
+                if (counter >= objects.Count())
+                {
+                    break;
+                }
+
+                userTemplates.Add(new TemplateModel { Id = (int)objects[counter], NameOfTemplate = (string)objects[counter + 1] });
+
+                counter += 2;
+            }
+
+            return userTemplates;
+        }
+
+        public List<BudgetModel> GetAllUserBudgets(string selectedUser)
         {
             SqlDataAccess db = new SqlDataAccess(_config);
             List<BudgetModel> userBudgets = new List<BudgetModel>();
@@ -151,6 +184,49 @@ namespace BudgetLibrary.DataLayer
             }
 
             return userBudgets;
+        }
+
+        public List<TemplateLineItemModel> GetAllUserTemplateLines(string selectedUser, string selectedTemplateName)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+            List<TemplateLineItemModel> userTemplate = new List<TemplateLineItemModel>();
+            Object[] objects;
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spTemplateLines_GetTemplateLinesByUserTemplate",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = selectedUser },
+                    new SqlParameter("@TemplateName", SqlDbType.NVarChar) { Value = selectedTemplateName }
+                }
+            };
+
+            objects = db.RunStoredProcedure_Read(storedProcedure);
+
+            int counter = 0;
+            foreach (var item in objects)
+            {
+                if (counter >= objects.Count())
+                {
+                    break;
+                }
+
+                userTemplate.Add(new TemplateLineItemModel
+                {
+                    Id = (int)objects[counter],
+                    DateOfTransaction = (DateTime)objects[counter + 1],
+                    AmountOfTransaction = (decimal)objects[counter + 2],
+                    DescriptionOfTransaction = (string)objects[counter + 3],
+                    CreditOrDebit = (int)objects[counter + 4],
+                    IsLarge = (bool)objects[counter + 5],
+                    TemplateId = (int)objects[counter + 6]
+                });
+
+                counter += 7;
+            }
+
+            return userTemplate;
         }
 
         public List<TransactionModel> GetAllUserBudgetLineItems(string selectedUser, string selectedBudgetName)
@@ -194,6 +270,56 @@ namespace BudgetLibrary.DataLayer
             }
 
             return userBudget;
+        }
+
+        public void DeleteBudget(string selectedUser, string selectedBudgetName)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spBudgetsLineItems_RemoveBudget",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = selectedUser },
+                    new SqlParameter("@BudgetName", SqlDbType.NVarChar) { Value = selectedBudgetName }
+                }
+            };
+
+            db.RunStoredProcedure_Delete(storedProcedure);
+        }
+
+        public void DeleteTemplate(string selectedUser, string selectedTemplateName)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spTemplatesTemplateLines_RemoveTemplate",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = selectedUser },
+                    new SqlParameter("@TemplateName", SqlDbType.NVarChar) { Value = selectedTemplateName }
+                }
+            };
+
+            db.RunStoredProcedure_Delete(storedProcedure);
+        }
+
+        public void DeleteUser(string userName)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spUsers_RemoveUser",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = userName },
+                }
+            };
+
+            db.RunStoredProcedure_Delete(storedProcedure);
         }
     }
 }

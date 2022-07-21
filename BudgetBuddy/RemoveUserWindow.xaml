@@ -11,6 +11,8 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
@@ -20,10 +22,18 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        
-        <TextBlock Grid.Row="1" Grid.Column="1" Padding="10">Are you sure you want to remove tcorey and all associated data?</TextBlock>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <TextBlock Margin="40 10 10 5">Username:</TextBlock>
+
+            <TextBlock x:Name="userNameTextBlock"  
+                   Margin="40 10 10 5"></TextBlock>
+
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Padding="10">Are you sure you want to remove this user and all associated data?</TextBlock>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button MinWidth="60" MaxWidth="60" x:Name="yesButton" Click="yesButton_Click"
                     Margin="10">YES</Button>
             <Button MinWidth="60" MaxWidth="60" x:Name="noButton" Click="noButton_Click"

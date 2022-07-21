@@ -2,19 +2,10 @@
 using BudgetLibrary.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BudgetBuddy
 {
@@ -46,19 +37,13 @@ namespace BudgetBuddy
 
                 data.UpdateBudgetName(newBudgetNameTextBox.Text, oldBudgetName, _editUserWindow.userNameTextBlock.Text);
 
+                ((MainWindow)Application.Current.MainWindow).UpdateBudgetsList();
+
+                _editUserWindow.PopulateUserInfo();
+
                 MessageBox.Show("Budget Name Updated Successfully!", "Budget Updated");
 
-                // Remove the selected (old) budget from the selectedBudgets List
-                // Set the list to null
-                // rebuild the list from the database
-                // update the budgets combo box on the edit user window
-                // update the budgets combo box on the main window
-
-                // _editUserWindow.userBudgetsComboBox.Text = newUserNameTextBox.Text;
-
-                // ((MainWindow)Application.Current.MainWindow).FillUsersComboBox();
-
-                // this.Close();
+                this.Close();
             }
         }
 
@@ -93,7 +78,7 @@ namespace BudgetBuddy
 
             SqlData data = new SqlData(config);
 
-            budgets = data.GetAllUserBudgetNames(_editUserWindow.userNameTextBlock.Text).ToList();
+            budgets = data.GetAllUserBudgets(_editUserWindow.userNameTextBlock.Text).ToList();
 
             foreach (BudgetModel budget in budgets)
             {
