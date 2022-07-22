@@ -36,7 +36,7 @@ namespace BudgetBuddy
 
         private void createNewTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateTransactionsWindow createTransaction = new CreateTransactionsWindow();
+            CreateTransactionsWindow createTransaction = new CreateTransactionsWindow(this);
             createTransaction.Show();
         }
 
@@ -49,12 +49,12 @@ namespace BudgetBuddy
         private void PopulateUserBudgetTitles()
         {
             welcomeTextBlock.Text =
-                $"Welcome, {((MainWindow)Application.Current.MainWindow).selectedUserNameComboBox.Text}!";
+                ((MainWindow)Application.Current.MainWindow).selectedUserNameComboBox.Text;
 
             budgetNameTextBlock.Text = ((MainWindow)Application.Current.MainWindow).selectedBudgetComboBox.Text;
         }
 
-        private void FillOutBudgetTable()
+        public void FillOutBudgetTable()
         {
             SqlData data = new SqlData(config);
 

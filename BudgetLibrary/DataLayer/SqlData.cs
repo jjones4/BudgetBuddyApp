@@ -36,6 +36,28 @@ namespace BudgetLibrary.DataLayer
             db.RunStoredProcedure_Create(storedProcedure);
         }
 
+        public void CreateNewLineItem(string userName, string budgetName, DateTime transactionDate, decimal transactionAmount,
+            string transactionDescription, int isCreditOrDebit)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spLineItems_AddNewLineItem",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = userName },
+                    new SqlParameter("@BudgetName", SqlDbType.NVarChar) { Value = budgetName },
+                    new SqlParameter("@TransactionDate", SqlDbType.DateTime2) { Value = transactionDate },
+                    new SqlParameter("@TransactionAmount", SqlDbType.Money) { Value = transactionAmount },
+                    new SqlParameter("@TransactionDescription", SqlDbType.NVarChar) { Value = transactionDescription },
+                    new SqlParameter("@IsCreditOrDebit", SqlDbType.Int) { Value = isCreditOrDebit }
+                }
+            };
+
+            db.RunStoredProcedure_Create(storedProcedure);
+        }
+
         public void UpdateUserName(string newUserName, string oldUserName)
         {
             SqlDataAccess db = new SqlDataAccess(_config);

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BudgetLibrary.DataLayer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
@@ -10,9 +13,17 @@ namespace BudgetBuddy
     /// </summary>
     public partial class CreateTransactionsWindow : Window
     {
-        public CreateTransactionsWindow()
+        private IConfiguration config = App.serviceProvider.GetService<IConfiguration>();
+        private BudgetHomeWindow _budgetHome = new BudgetHomeWindow();
+
+        public CreateTransactionsWindow(BudgetHomeWindow budgetHome)
         {
             InitializeComponent();
+
+            _budgetHome = budgetHome;
+
+            userNameTextBlock.Text = _budgetHome.welcomeTextBlock.Text;
+            budgetNameTextBlock.Text = _budgetHome.budgetNameTextBlock.Text;
         }
 
         private void saveNewTransactionButton_Click(object sender, RoutedEventArgs e)
@@ -32,10 +43,32 @@ namespace BudgetBuddy
 
             if (finalValidationResults == true)
             {
+                SqlData data = new SqlData(config);
 
+                decimal transactionAmount = 0;
+                int creditOrDebit = 0;
+
+                DateTime parsedDateTime;
+
+                string[] dateFormats = {    "M/d/yyyy",
+                                        "M/dd/yyyy",
+                                        "MM/d/yyyy",
+                                        "MM/dd/yyyy" };
+
+                DateTime.TryParseExact(transactionDateTextBox.Text, dateFormats, new CultureInfo("en-US"),
+                    System.Globalization.DateTimeStyles.None, out parsedDateTime);
+
+                decimal.TryParse(transactionAmountTextBox.Text, out transactionAmount);
+
+                int.TryParse(creditOrDebitTextBox.Text, out creditOrDebit);
+
+                data.CreateNewLineItem(userNameTextBlock.Text, budgetNameTextBlock.Text, parsedDateTime, 
+                    transactionAmount, transactionDescriptionTextBox.Text, creditOrDebit);
+
+                _budgetHome.FillOutBudgetTable();
 
                 MessageBox.Show("Transaction Added Successfully", "Transaction Added");
-                // this.Close();
+                this.Close();
             }
             else
             {
@@ -171,10 +204,10 @@ namespace BudgetBuddy
         private bool IsValidDate()
         {
             bool output = true;
-            string[] dateFormats = {    "M/d/yy", "M/d/yyyy",
-                                        "M/dd/yy", "M/dd/yyyy",
-                                        "MM/d/yy", "MM/d/yyyy",
-                                        "MM/dd/yy", "MM/dd/yyyy" };
+            string[] dateFormats = {    "M/d/yyyy",
+                                        "M/dd/yyyy",
+                                        "MM/d/yyyy",
+                                        "MM/dd/yyyy" };
             DateTime parsedDateTime;
 
             if (DateTime.TryParseExact(transactionDateTextBox.Text, dateFormats, new CultureInfo("en-US"), System.Globalization.DateTimeStyles.None, out parsedDateTime) == false)
@@ -188,9 +221,9 @@ namespace BudgetBuddy
         private bool IsValidAmount()
         {
             bool output = true;
-            int transactionAmount;
+            decimal transactionAmount;
 
-            if (int.TryParse(transactionAmountTextBox.Text, out transactionAmount) == false)
+            if (decimal.TryParse(transactionAmountTextBox.Text, out transactionAmount) == false)
             {
                 output = false;
             }
