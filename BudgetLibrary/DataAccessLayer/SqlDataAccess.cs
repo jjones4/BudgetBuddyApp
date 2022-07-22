@@ -21,8 +21,6 @@ namespace BudgetLibrary.DataAccessLayer
             _config = config;
         }
 
-        // TODO - Complete the code for the "create" stored procedure
-        // TODO - Write the "create" stored procedure in the database
         public void RunStoredProcedure_Create(StoredProcedureModel storedProcedure)
         {
             string connectionString = _config.GetConnectionString(connectionStringName);
@@ -46,8 +44,6 @@ namespace BudgetLibrary.DataAccessLayer
             }
         }
 
-        // TODO - Complete the code for the "read" stored procedure
-        // TODO - Write the "read" stored procedure in the database
         public Object[] RunStoredProcedure_Read(StoredProcedureModel storedProcedure)
         {
             string connectionString = _config.GetConnectionString(connectionStringName);
@@ -113,8 +109,6 @@ namespace BudgetLibrary.DataAccessLayer
             return output;
         }
 
-        // TODO - Complete the code for the "update" stored procedure
-        // TODO - Write the "update" stored procedure in the database
         public void RunStoredProcedure_Update(StoredProcedureModel storedProcedure)
         {
             string connectionString = _config.GetConnectionString(connectionStringName);
@@ -139,8 +133,6 @@ namespace BudgetLibrary.DataAccessLayer
             }
         }
 
-        // TODO - Complete the code for the "delete" stored procedure
-        // TODO - Write the "delete" stored procedure in the database
         public void RunStoredProcedure_Delete(StoredProcedureModel storedProcedure)
         {
             string connectionString = _config.GetConnectionString(connectionStringName);
