@@ -50,21 +50,7 @@
                     Remove Transaction Templates
                 </Hyperlink>
         </TextBlock>
-        <TextBlock Grid.Row="5" Grid.Column="1" Margin="5">
-                <Hyperlink x:Name="addUserLink" Click="addUserLink_Click">
-                    Add New User
-                </Hyperlink>
-        </TextBlock>
-        <TextBlock Grid.Row="6" Grid.Column="1" Margin="5">
-                <Hyperlink x:Name="editUserLink" Click="editUserLink_Click">
-                    Edit Users
-                </Hyperlink>
-        </TextBlock>
-        <TextBlock Grid.Row="7" Grid.Column="1" Margin="5">
-                <Hyperlink x:Name="removeUsersLink" Click="removeUsersLink_Click">
-                    Remove User
-                </Hyperlink>
-        </TextBlock>
+        
         <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
             <Button MinWidth="60" MaxWidth="60"
                     x:Name="backButton" Click="backButton_Click"

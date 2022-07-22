@@ -2,6 +2,7 @@
 using BudgetLibrary.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -56,7 +57,7 @@ namespace BudgetBuddy
         {
             bool output = true;
 
-            if (newBudgetNameTextBox.Text.Length < 1)
+            if (String.IsNullOrWhiteSpace(newBudgetNameTextBox.Text))
             {
                 MessageBox.Show("Please fill out the new budget name.", "Form Error");
                 output = false;

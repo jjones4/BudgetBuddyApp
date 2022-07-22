@@ -40,7 +40,7 @@
                    Text="Select Template (Optional)">
         </TextBlock>
 
-        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="selectBudgetComboBox"
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="selectedTemplateComboBox"
                  MaxWidth="200" Margin="30 5 5 5">
         </ComboBox>
 
@@ -54,17 +54,20 @@
             <TextBlock Padding="45 5 5 5"
                    Text="Description">
             </TextBlock>
+            <TextBlock Padding="45 5 5 5"
+                   Text="Credit/Debit">
+            </TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
-            <TextBox MaxHeight="20" MinWidth="100" MaxWidth="100" Margin="5">
+            <TextBox x:Name="transactionDateTextBox" MaxHeight="20" MinWidth="100" MaxWidth="100" Margin="5">
             </TextBox>
-            <TextBox MaxHeight="20" MinWidth="100" MaxWidth="100" Margin="5">
+            <TextBox x:Name="transactionAmountTextBox" MaxHeight="20" MinWidth="100" MaxWidth="100" Margin="5">
             </TextBox>
-            <TextBox MaxHeight="20" MinWidth="100" MaxWidth="100" Margin="5">
+            <TextBox x:Name="transactionDescriptionTextBox" MaxHeight="20" MinWidth="100" MaxWidth="100" Margin="5">
             </TextBox>
-            <TextBlock Margin="5" FontSize="30">+
-            </TextBlock>
+            <TextBox x:Name="creditOrDebitTextBox" MaxHeight="20" MinWidth="100" MaxWidth="100" Margin="5">
+            </TextBox>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"

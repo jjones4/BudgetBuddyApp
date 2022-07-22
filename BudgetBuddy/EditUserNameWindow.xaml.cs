@@ -56,7 +56,7 @@ namespace BudgetBuddy
         {
             bool output = true;
 
-            if (newUserNameTextBox.Text.Length < 1)
+            if (String.IsNullOrWhiteSpace(newUserNameTextBox.Text))
             {
                 MessageBox.Show("Please fill out the new username.", "Form Error");
                 output = false;

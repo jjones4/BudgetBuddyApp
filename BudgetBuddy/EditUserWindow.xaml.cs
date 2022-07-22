@@ -4,17 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BudgetBuddy
 {
@@ -90,11 +80,10 @@ namespace BudgetBuddy
         {
             bool output = true;
 
-            if (addBudgetToListTextBox.Text.Length < 1)
+            if (String.IsNullOrWhiteSpace(addBudgetToListTextBox.Text))
             {
+                MessageBox.Show("Please fill out a budget name.", "Form Error");
                 output = false;
-
-                MessageBox.Show("Please type a name for your budget.", "Budget Name Error");
             }
 
             foreach (string budgetName in selectedBudgets)

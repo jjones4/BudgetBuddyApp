@@ -4,14 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BudgetBuddy
 {
@@ -69,7 +63,7 @@ namespace BudgetBuddy
 
         private void addBudgetToList_Click(object sender, RoutedEventArgs e)
         {
-            if (budgetNameToAddTextBox.Text.Length > 0)
+            if (budgetNameToAddTextBox.Text.Length > 0 && !String.IsNullOrWhiteSpace(budgetNameToAddTextBox.Text))
             {
                 selectedBudgetsListBox.ItemsSource = null;
                 selectedBudgets.Add(budgetNameToAddTextBox.Text);
@@ -92,9 +86,9 @@ namespace BudgetBuddy
         {
             bool output = true;
 
-            if (userNameToAddTextBox.Text.Length < 1)
+            if (String.IsNullOrWhiteSpace(userNameToAddTextBox.Text))
             {
-                MessageBox.Show("Please fill out the new username.", "Form Error");
+                MessageBox.Show("Please fill out a name for the new user.", "Form Error");
                 output = false;
             }
             if (UserNameAlreadyExists())
