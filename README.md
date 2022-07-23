@@ -10,7 +10,7 @@ The only stipulation is that user names must be unique in the database.
 
 # Getting Started with BudgetBuddy
 
-To use BudgetBuddy, you can build the solution using Microsoft Visual Studio.
+To use BudgetBuddy, you can build and run the solution using Microsoft Visual Studio.
 
 You must have a MSSQL Server database with appropriate tables and stored procedures in order to use the full features of the app.
 
