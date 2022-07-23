@@ -10,12 +10,16 @@ The only stipulation is that user names must be unique in the database.
 
 # Getting Started with BudgetBuddy
 
-To use BudgetBuddy, you can build and run the solution using Microsoft Visual Studio.
+To use BudgetBuddy, you need a MSSQL Server database with appropriate tables and stored procedures in order to use the full features of the app.
 
-You must have a MSSQL Server database with appropriate tables and stored procedures in order to use the full features of the app.
+First, you can run the following SQL statement to create the database:
 
-The appsettings.json file has a connection string which assumes the existence of a database called "BudgetBuddy." You must add your server name to the connection string in order for it to function.
+- CREATE DATABASE BudgetBuddy;
 
-Once you create the database, you can run the dbo.spInitializeData to set up all the necessary tables, including the Foreign Key constraints and some sample users, budgets, and line items.
+Next, locate the appsettings.json file in the BudgetBuddy folder. Ensure you type in your correct server name instead of the placeholder data.
 
-Then, you can add all the stored procedures to the database, and you can begin using BudgetBuddy!
+Then, you can create and run the stored procedure, dbo.spInitializeData, to set up all the necessary tables, including the Foreign Key constraints and some sample users, budgets, and line items to play with.
+
+From the stored procedures folder, add the rest of the stored procedures to the database.
+
+Finally, you can build and run the solution using Microsoft Visual Studio!
