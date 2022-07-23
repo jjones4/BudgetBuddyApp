@@ -6,7 +6,9 @@ Multiple users can add their user names to the database, and each user can have 
 
 For example, a user "abrown" can have two budgets: Personal and Business.
 
-The only stipulation is that user names must be unique in the database.
+The only stipulations are: user names must be unique in the database and each user cannot have two budgets with the same name.
+
+However, two different users CAN have budgets with the same names.
 
 # Getting Started with BudgetBuddy
 
