@@ -62,11 +62,12 @@ namespace BudgetBuddy
                 data.GetAllUserBudgetLineItems(((MainWindow)Application.Current.MainWindow).selectedUserNameComboBox.Text,
                 ((MainWindow)Application.Current.MainWindow).selectedBudgetComboBox.Text);
 
-            List<List<string>> test = new List<List<string>>();
+            List<List<string>> budgetTableRowData = new List<List<string>>();
 
             int counter = 1;
-            test.Add(new List<string>
+            budgetTableRowData.Add(new List<string>
             {
+                "Id",
                 "Date",
                 "Amount",
                 "Description",
@@ -75,33 +76,93 @@ namespace BudgetBuddy
 
             foreach (var transaction in budget)
             {
-                test.Add(new List<string>());
+                budgetTableRowData.Add(new List<string>());
 
                 for (int i = 0; i < 5; i++)
                 {
                     if (i == 0)
                     {
-                        test[counter].Add(transaction.DateOfTransaction.Date.ToShortDateString().ToString());
+                        budgetTableRowData[counter].Add(transaction.Id.ToString());
                     }
                     if (i == 1)
                     {
-                        test[counter].Add(Convert.ToDecimal(string.Format("{0:0.00}",
-                            transaction.AmountOfTransaction)).ToString());
+                        budgetTableRowData[counter].Add(transaction.DateOfTransaction.Date.ToShortDateString().ToString());
                     }
                     if (i == 2)
                     {
-                        test[counter].Add(transaction.DescriptionOfTransaction.ToString());
+                        budgetTableRowData[counter].Add(Convert.ToDecimal(string.Format("{0:0.00}",
+                            transaction.AmountOfTransaction)).ToString());
                     }
                     if (i == 3)
                     {
-                        test[counter].Add(transaction.CreditOrDebit.ToString());
+                        budgetTableRowData[counter].Add(transaction.DescriptionOfTransaction.ToString());
+                    }
+                    if (i == 4)
+                    {
+                        budgetTableRowData[counter].Add(transaction.CreditOrDebit.ToString());
                     }
                 }
 
                 counter += 1;
             }
 
-            budgetTable.ItemsSource = test;
+            budgetTable.ItemsSource = budgetTableRowData;
+        }
+
+        private void editTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsValidBudgetId())
+            {
+                int lineItemId;
+                int.TryParse(budgetIdToEditTextBox.Text, out lineItemId);
+
+                EditOrRemoveLineItemWindow editOrRemoveLinteItem = new EditOrRemoveLineItemWindow(lineItemId, this);
+
+                editOrRemoveLinteItem.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid budget Id number.", "ID Error");
+            }
+        }
+
+        private bool IsValidBudgetId()
+        {
+            bool output = true;
+            int budgetId;
+            bool idMatchFound = false;
+
+            if (int.TryParse(budgetIdToEditTextBox.Text, out budgetId) == false)
+            {
+                output = false;
+            }
+            else
+            {
+                // Check to make sure the id entered by the user matches an id in THEIR selected budget
+                // and not any of the other budgets
+                SqlData data = new SqlData(config);
+                int lineItemId;
+
+                List<TransactionModel> budget =
+                    data.GetAllUserBudgetLineItems(welcomeTextBlock.Text, budgetNameTextBlock.Text);
+
+                foreach (TransactionModel lineItem in budget)
+                {
+                    lineItemId = lineItem.Id;
+
+                    if (budgetId == lineItemId)
+                    {
+                        idMatchFound = true;
+                    }
+                }
+            }
+
+            if (idMatchFound == false)
+            {
+                output = false;
+            }
+
+            return output;
         }
     }
 }

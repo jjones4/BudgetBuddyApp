@@ -83,7 +83,16 @@
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
             <Button MinWidth="60" MaxWidth="160" x:Name="createNewTransactionButton" Click="createNewTransactionButton_Click"
                     Margin="10">CREATE NEW TRANSACTION</Button>
+            
+            <TextBlock Margin="50 10 5 10">
+                Type an Id number to edit or remove a budget line item.
+            </TextBlock>
 
+            <TextBox x:Name="budgetIdToEditTextBox" Margin="2 10 10 10" MinWidth="40">
+            </TextBox>
+
+            <Button MinWidth="60" MaxWidth="160" x:Name="editTransactionButton" Click="editTransactionButton_Click"
+                    Margin="10">EDIT TRANSACTION</Button>
         </StackPanel>
 
         <ItemsControl Grid.Row="5" Grid.Column="1" Name="budgetTable"

@@ -93,6 +93,27 @@ namespace BudgetLibrary.DataLayer
             db.RunStoredProcedure_Update(storedProcedure);
         }
 
+        public void UpdateLineItem(int lineItemId, DateTime transactionDate, decimal transactionAmount,
+            string transactionDescription, int isCreditOrDebit)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spLineItems_UpdateLineItemById",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@LineItemId", SqlDbType.Int) { Value = lineItemId },
+                    new SqlParameter("@TransactionDate", SqlDbType.DateTime2) { Value = transactionDate },
+                    new SqlParameter("@TransactionAmount", SqlDbType.Money) { Value = transactionAmount},
+                    new SqlParameter("@TransactionDescription", SqlDbType.NVarChar) { Value = transactionDescription },
+                    new SqlParameter("@CreditOrDebit", SqlDbType.Int) { Value = isCreditOrDebit }
+                }
+            };
+
+            db.RunStoredProcedure_Update(storedProcedure);
+        }
+
         public void CreateNewUserBudget(string userName, List<string> selectedBudgets)
         {
             SqlDataAccess db = new SqlDataAccess(_config);
@@ -251,6 +272,31 @@ namespace BudgetLibrary.DataLayer
             return userTemplate;
         }
 
+        public TransactionModel GetLineItem(int lineItemId)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+            TransactionModel lineItem = new TransactionModel();
+            Object[] lineItems;
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spLineItems_GetLineItemById",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@LineItemId", SqlDbType.Int) { Value = lineItemId },
+                }
+            };
+
+            lineItems = db.RunStoredProcedure_Read(storedProcedure);
+
+            lineItem.DateOfTransaction = (DateTime)lineItems[1];
+            lineItem.AmountOfTransaction = (decimal)lineItems[2];
+            lineItem.DescriptionOfTransaction = (string)lineItems[3];
+            lineItem.CreditOrDebit = (int)lineItems[4];
+
+            return lineItem;
+        }
+
         public List<TransactionModel> GetAllUserBudgetLineItems(string selectedUser, string selectedBudgetName)
         {
             SqlDataAccess db = new SqlDataAccess(_config);
@@ -305,6 +351,22 @@ namespace BudgetLibrary.DataLayer
                 {
                     new SqlParameter("@UserName", SqlDbType.NVarChar) { Value = selectedUser },
                     new SqlParameter("@BudgetName", SqlDbType.NVarChar) { Value = selectedBudgetName }
+                }
+            };
+
+            db.RunStoredProcedure_Delete(storedProcedure);
+        }
+
+        public void DeleteLineItem(int lineItemId)
+        {
+            SqlDataAccess db = new SqlDataAccess(_config);
+
+            StoredProcedureModel storedProcedure = new StoredProcedureModel
+            {
+                NameOfStoredProcedure = "spLineItems_RemoveLineItemById",
+                ParameterList = new List<SqlParameter>
+                {
+                    new SqlParameter("@LineItemId", SqlDbType.NVarChar) { Value = lineItemId },
                 }
             };
 
