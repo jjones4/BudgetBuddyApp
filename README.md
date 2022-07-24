@@ -6,7 +6,7 @@ Multiple users can add their user names to the database, and each user can have 
 
 The only stipulations are: user names must be unique in the database, and each user cannot have two budgets with the same name.
 
-# Getting Started with BudgetBuddy
+# Getting Started with BudgetBuddyApp
 
 To use BudgetBuddy, you need a MSSQL database with appropriate tables and stored procedures in order to use the full features of the app.
 
