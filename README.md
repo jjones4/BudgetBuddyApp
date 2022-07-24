@@ -4,8 +4,6 @@ BudgetBuddyApp is a C# WPF .NET 6.0 app for keeping personal budgets. It has a M
 
 Multiple users can add their user names to the database, and each user can have multiple budgets.
 
-For example, a user, abrown, can have two budgets: Personal and Business.
-
 The only stipulations are: user names must be unique in the database, and each user cannot have two budgets with the same name.
 
 # Getting Started with BudgetBuddy
