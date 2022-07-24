@@ -12,7 +12,7 @@ The only stipulations are: user names must be unique in the database, and each u
 
 To use BudgetBuddy, you need a MSSQL database with appropriate tables and stored procedures in order to use the full features of the app.
 
-First, run the following SQL statement to create the database:
+First, execute the following SQL statement to create the database:
 
 - CREATE DATABASE BudgetBuddy;
 
