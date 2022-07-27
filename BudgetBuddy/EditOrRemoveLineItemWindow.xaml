@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BudgetBuddy"
         mc:Ignorable="d"
-        Title="EditOrRemoveLineItemWindow" Height="450" Width="800">
+        Title="Edit Line Item" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
