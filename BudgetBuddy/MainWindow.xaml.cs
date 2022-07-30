@@ -30,10 +30,6 @@ namespace BudgetBuddy
                 BudgetHomeWindow home = new BudgetHomeWindow();
                 home.Show();
             }
-            else
-            {
-                MessageBox.Show("Please make a selection for all fields.", "Form Error");
-            }
         }
 
         private void quitButton_Click(object sender, RoutedEventArgs e)
@@ -139,16 +135,29 @@ namespace BudgetBuddy
         {
             bool output = true;
 
-            // I could put both checks into an "OR" conditional
-            // I kept them separate in case I want to give specific
-            // error messages for each one
-            if (selectedUserNameComboBox.Text.Length < 1)
+            if (selectedUserNameComboBox.Text.Length < 1 && selectedBudgetComboBox.Text.Length < 1)
             {
+                MessageBox.Show("Please make a selection for all fields.", "Form Error");
                 output = false;
             }
 
-            if (selectedBudgetComboBox.Text.Length < 1)
+            if (selectedUserNameComboBox.Text.Length > 1 && selectedBudgetComboBox.Text.Length < 1)
             {
+                List<BudgetModel> budgets = new List<BudgetModel>();
+                SqlData data = new SqlData(config);
+
+                budgets = data.GetAllUserBudgets(selectedUserNameComboBox.SelectedItem.ToString())
+                          .OrderBy(x => x.NameOfBudget).ToList();
+
+                if (budgets.Count > 0)
+                {
+                    MessageBox.Show("Please select a budget for this user.", "Form Error");
+                }
+                else
+                {
+                    MessageBox.Show("No budgets were found for this user. Please add a budget by selecting \"Edit User.\"", "Form Error");
+                }
+
                 output = false;
             }
 
