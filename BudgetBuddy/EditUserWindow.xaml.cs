@@ -132,15 +132,22 @@ namespace BudgetBuddy
 
         private void saveNewBudgets_Click(object sender, RoutedEventArgs e)
         {
-            SqlData data = new SqlData(config);
+            if (selectedBudgets.Count > 0)
+            {
+                SqlData data = new SqlData(config);
 
-            data.CreateNewUserBudget(userNameTextBlock.Text, selectedBudgets);
+                data.CreateNewUserBudget(userNameTextBlock.Text, selectedBudgets);
 
-            ((MainWindow)Application.Current.MainWindow).UpdateBudgetsList();
+                ((MainWindow)Application.Current.MainWindow).UpdateBudgetsList();
 
-            PopulateUserInfo();
+                PopulateUserInfo();
 
-            MessageBox.Show($"Budgets added successfully!", "Budget Addition");
+                MessageBox.Show($"Budgets added successfully!", "Budget Addition");
+            }
+            else
+            {
+                MessageBox.Show("Please make sure a budget has been added to the selected budgets.", "Budget Error");
+            }
         }
     }
 }

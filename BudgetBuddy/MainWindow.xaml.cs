@@ -135,12 +135,16 @@ namespace BudgetBuddy
         {
             bool output = true;
 
+            // Specific error message for when no selections are made
             if (selectedUserNameComboBox.Text.Length < 1 && selectedBudgetComboBox.Text.Length < 1)
             {
                 MessageBox.Show("Please make a selection for all fields.", "Form Error");
                 output = false;
             }
 
+            // Error messages for two cases:
+            // First case: user is selected, but no budget is selected for the user
+            // Second case: user is selected, but the user does not have a budget yet
             if (selectedUserNameComboBox.Text.Length > 1 && selectedBudgetComboBox.Text.Length < 1)
             {
                 List<BudgetModel> budgets = new List<BudgetModel>();
@@ -149,10 +153,13 @@ namespace BudgetBuddy
                 budgets = data.GetAllUserBudgets(selectedUserNameComboBox.SelectedItem.ToString())
                           .OrderBy(x => x.NameOfBudget).ToList();
 
+                // If the selected user has a budget, error message advises to please select a budget
                 if (budgets.Count > 0)
                 {
                     MessageBox.Show("Please select a budget for this user.", "Form Error");
                 }
+                // If the selected user does not have a budget, error message advises to
+                // please edit the user and add a budget
                 else
                 {
                     MessageBox.Show("No budgets were found for this user. Please add a budget by selecting \"Edit User.\"", "Form Error");
