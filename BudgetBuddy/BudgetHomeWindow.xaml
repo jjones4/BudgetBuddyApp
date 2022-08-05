@@ -66,13 +66,11 @@
             <TextBlock x:Name="selectViewTextBlock" 
                    Margin="40 10 10 5" Text="Select View">
             </TextBlock>
-            <Button MinWidth="60" MaxWidth="60"
+            <Button x:Name="filterMonthButton" Click="filterMonthButton_Click" MinWidth="60" MaxWidth="60"
                     Margin="10">MONTH</Button>
-            <Button MinWidth="60" MaxWidth="60"
+            <Button x:Name="filterYearButton" Click="filterYearButton_Click" MinWidth="60" MaxWidth="60"
                     Margin="10">YEAR</Button>
-            <Button MinWidth="60" MaxWidth="60"
-                    Margin="10">RANGE</Button>
-            <Button MinWidth="60" MaxWidth="60"
+            <Button x:Name="filterNoneButton" Click="filterNoneButton_Click" MinWidth="60" MaxWidth="60"
                     Margin="10">ALL</Button>
             <Button MinWidth="70" MaxWidth="70"
                     Margin="10">SUMMARY</Button>

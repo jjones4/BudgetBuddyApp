@@ -89,7 +89,7 @@ namespace BudgetBuddy
 
                 data.UpdateLineItem(_lineItemId, parsedDateTime, transactionAmount, transactionDescriptionTextBox.Text, creditOrDebit);
 
-                _budgetHomeWindow.FillOutBudgetTable();
+                _budgetHomeWindow.FillOutBudgetTable(new DateTime(1901, 1, 1), new DateTime(2022, 12, 31));
 
                 _budgetHomeWindow.budgetIdToEditTextBox.Clear();
 
@@ -192,7 +192,7 @@ namespace BudgetBuddy
 
             data.DeleteLineItem(_lineItemId);
 
-            _budgetHomeWindow.FillOutBudgetTable();
+            _budgetHomeWindow.FillOutBudgetTable(new DateTime(1901, 1, 1), new DateTime(2022, 12, 31));
 
             MessageBox.Show("Successfully removed line item.", "Removal Success");
 

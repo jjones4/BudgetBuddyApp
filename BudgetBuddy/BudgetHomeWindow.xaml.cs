@@ -14,6 +14,8 @@ namespace BudgetBuddy
     public partial class BudgetHomeWindow : Window
     {
         private IConfiguration config = App.serviceProvider.GetService<IConfiguration>();
+        private DateTime defaultStartDate = new DateTime(1901, 1, 1);
+        private DateTime defaultEndDate = new DateTime(2099, 12, 31);
 
         public BudgetHomeWindow()
         {
@@ -21,7 +23,7 @@ namespace BudgetBuddy
 
             PopulateUserBudgetTitles();
 
-            FillOutBudgetTable();
+            FillOutBudgetTable(defaultStartDate, defaultEndDate);
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -54,7 +56,7 @@ namespace BudgetBuddy
             budgetNameTextBlock.Text = ((MainWindow)Application.Current.MainWindow).selectedBudgetComboBox.Text;
         }
 
-        public void FillOutBudgetTable()
+        public void FillOutBudgetTable(DateTime startDate, DateTime endDate)
         {
             SqlData data = new SqlData(config);
 
@@ -76,34 +78,37 @@ namespace BudgetBuddy
 
             foreach (var transaction in budget)
             {
-                budgetTableRowData.Add(new List<string>());
-
-                for (int i = 0; i < 5; i++)
+                if (transaction.DateOfTransaction >= startDate && transaction.DateOfTransaction < endDate)
                 {
-                    if (i == 0)
-                    {
-                        budgetTableRowData[counter].Add(transaction.Id.ToString());
-                    }
-                    if (i == 1)
-                    {
-                        budgetTableRowData[counter].Add(transaction.DateOfTransaction.Date.ToShortDateString().ToString());
-                    }
-                    if (i == 2)
-                    {
-                        budgetTableRowData[counter].Add(Convert.ToDecimal(string.Format("{0:0.00}",
-                            transaction.AmountOfTransaction)).ToString());
-                    }
-                    if (i == 3)
-                    {
-                        budgetTableRowData[counter].Add(transaction.DescriptionOfTransaction.ToString());
-                    }
-                    if (i == 4)
-                    {
-                        budgetTableRowData[counter].Add(transaction.CreditOrDebit.ToString());
-                    }
-                }
+                    budgetTableRowData.Add(new List<string>());
 
-                counter += 1;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (i == 0)
+                        {
+                            budgetTableRowData[counter].Add(transaction.Id.ToString());
+                        }
+                        if (i == 1)
+                        {
+                            budgetTableRowData[counter].Add(transaction.DateOfTransaction.Date.ToShortDateString().ToString());
+                        }
+                        if (i == 2)
+                        {
+                            budgetTableRowData[counter].Add(Convert.ToDecimal(string.Format("{0:0.00}",
+                                transaction.AmountOfTransaction)).ToString());
+                        }
+                        if (i == 3)
+                        {
+                            budgetTableRowData[counter].Add(transaction.DescriptionOfTransaction.ToString());
+                        }
+                        if (i == 4)
+                        {
+                            budgetTableRowData[counter].Add(transaction.CreditOrDebit.ToString());
+                        }
+                    }
+
+                    counter += 1;
+                }
             }
 
             budgetTable.ItemsSource = budgetTableRowData;
@@ -163,6 +168,31 @@ namespace BudgetBuddy
             }
 
             return output;
+        }
+
+        private void filterMonthButton_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime todaysDate = DateTime.Today;
+
+            DateTime firstDayOfMonth = new DateTime(todaysDate.Year, todaysDate.Month, 1);
+            DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1);
+
+            FillOutBudgetTable(firstDayOfMonth, lastDayOfMonth);
+        }
+
+        private void filterYearButton_Click(object sender, RoutedEventArgs e)
+        {
+            int year = DateTime.Now.Year;
+
+            DateTime firstDayOfYear = new DateTime(year, 1, 1);
+            DateTime lastDayOfYear = new DateTime(year, 12, 31);
+
+            FillOutBudgetTable(firstDayOfYear, lastDayOfYear);
+        }
+
+        private void filterNoneButton_Click(object sender, RoutedEventArgs e)
+        {
+            FillOutBudgetTable(defaultStartDate, defaultEndDate);
         }
     }
 }

@@ -7,9 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BudgetLogic\**" />
+    <Compile Remove="Validation\**" />
+    <EmbeddedResource Remove="BudgetLogic\**" />
+    <EmbeddedResource Remove="Validation\**" />
+    <None Remove="BudgetLogic\**" />
+    <None Remove="Validation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DataAccessLayer\" />
-    <Folder Include="BudgetLogic\" />
-    <Folder Include="Validation\" />
   </ItemGroup>
 
   <ItemGroup>
