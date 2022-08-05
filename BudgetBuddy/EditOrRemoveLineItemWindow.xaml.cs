@@ -26,10 +26,15 @@ namespace BudgetBuddy
     {
         private IConfiguration config = App.serviceProvider.GetService<IConfiguration>();
         private int _lineItemId = 0;
+        DateTime _startDate;
+        DateTime _endDate;
         BudgetHomeWindow _budgetHomeWindow;
 
-        public EditOrRemoveLineItemWindow(int lineItemId, BudgetHomeWindow budgetHomeWindow)
+        public EditOrRemoveLineItemWindow(int lineItemId, BudgetHomeWindow budgetHomeWindow, DateTime startDate, DateTime endDate)
         {
+            _startDate = startDate;
+            _endDate = endDate;
+
             InitializeComponent();
 
             _lineItemId = lineItemId;
@@ -89,7 +94,7 @@ namespace BudgetBuddy
 
                 data.UpdateLineItem(_lineItemId, parsedDateTime, transactionAmount, transactionDescriptionTextBox.Text, creditOrDebit);
 
-                _budgetHomeWindow.FillOutBudgetTable(new DateTime(1901, 1, 1), new DateTime(2022, 12, 31));
+                _budgetHomeWindow.FillOutBudgetTable(_startDate, _endDate);
 
                 _budgetHomeWindow.budgetIdToEditTextBox.Clear();
 
@@ -192,7 +197,7 @@ namespace BudgetBuddy
 
             data.DeleteLineItem(_lineItemId);
 
-            _budgetHomeWindow.FillOutBudgetTable(new DateTime(1901, 1, 1), new DateTime(2022, 12, 31));
+            _budgetHomeWindow.FillOutBudgetTable(_startDate, _endDate);
 
             MessageBox.Show("Successfully removed line item.", "Removal Success");
 

@@ -23,217 +23,80 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
 
-        <TextBlock x:Name="welcomeTextBlock" Grid.Column="1" Grid.Row="1"
+            <TextBlock x:Name="welcomeTextBlock" Grid.Column="1" Grid.Row="1"
                    Margin="10" FontSize="20">
-        </TextBlock>
+            </TextBlock>
 
-        <TextBlock x:Name="budgetNameTextBlock" Grid.Column="1" Grid.Row="1"
+            <TextBlock x:Name="budgetNameTextBlock" Grid.Column="1" Grid.Row="1"
                    Margin="10 40 10 5" FontSize="18">
-        </TextBlock>
+            </TextBlock>
 
-        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right">
-                <Hyperlink x:Name="settingsLink" Click="settingsLink_Click">
-                    Settings
-                </Hyperlink>
-        </TextBlock>
-
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-            <TextBlock x:Name="selectViewTextBlock" 
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                <TextBlock x:Name="selectViewTextBlock" 
                    Margin="40 10 10 5" Text="Select View">
-            </TextBlock>
-            <Button x:Name="filterMonthButton" Click="filterMonthButton_Click" MinWidth="60" MaxWidth="60"
+                </TextBlock>
+                <Button x:Name="filterMonthButton" Click="filterMonthButton_Click" MinWidth="60" MaxWidth="60"
                     Margin="10">MONTH</Button>
-            <Button x:Name="filterYearButton" Click="filterYearButton_Click" MinWidth="60" MaxWidth="60"
+                <Button x:Name="filterYearButton" Click="filterYearButton_Click" MinWidth="60" MaxWidth="60"
                     Margin="10">YEAR</Button>
-            <Button x:Name="filterNoneButton" Click="filterNoneButton_Click" MinWidth="60" MaxWidth="60"
+                <Button x:Name="filterNoneButton" Click="filterNoneButton_Click" MinWidth="60" MaxWidth="60"
                     Margin="10">ALL</Button>
-            <Button MinWidth="70" MaxWidth="70"
+                <Button x:Name="budgetSummaryButton" Click="budgetSummaryButton_Click" MinWidth="70" MaxWidth="70"
                     Margin="10">SUMMARY</Button>
-            <Button MinWidth="60" MaxWidth="60"
-                    Margin="10">LARGE</Button>
-        </StackPanel>
+            </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <Button MinWidth="60" MaxWidth="160" x:Name="createNewTransactionButton" Click="createNewTransactionButton_Click"
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                <Button MinWidth="60" MaxWidth="160" x:Name="createNewTransactionButton" Click="createNewTransactionButton_Click"
                     Margin="10">CREATE NEW TRANSACTION</Button>
-            
-            <TextBlock Margin="50 10 5 10">
+
+                <TextBlock Margin="50 10 5 10">
                 Type an Id number to edit or remove a budget line item.
-            </TextBlock>
+                </TextBlock>
 
-            <TextBox x:Name="budgetIdToEditTextBox" Margin="2 10 10 10" MinWidth="40">
-            </TextBox>
+                <TextBox x:Name="budgetIdToEditTextBox" Margin="2 10 10 10" MinWidth="40">
+                </TextBox>
 
-            <Button MinWidth="60" MaxWidth="160" x:Name="editTransactionButton" Click="editTransactionButton_Click"
+                <Button MinWidth="60" MaxWidth="160" x:Name="editTransactionButton" Click="editTransactionButton_Click"
                     Margin="10">EDIT TRANSACTION</Button>
-        </StackPanel>
+            </StackPanel>
 
-        <ItemsControl Grid.Row="5" Grid.Column="1" Name="budgetTable"
+            <ItemsControl Grid.Row="5" Grid.Column="1" Name="budgetTable"
                       ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
 
-        <!--
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
 
-            <TextBlock Padding="5 5 42 5"
-                   Text="Date">
-            </TextBlock>
-            <TextBlock Padding="5 5 20 5"
-                   Text="Amount">
-            </TextBlock>
-            <TextBlock Padding="5"
-                   Text="Description">
-            </TextBlock>
-        </StackPanel>
-
-        
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-            
-            <TextBlock Padding="5"
-                   Text="06/30/2022">
-            </TextBlock>
-            <TextBlock Padding="5 5 30 5"
-                   Text="$23.71">
-            </TextBlock>
-            <TextBlock Padding="5 5 100 5"
-                   Text="Gas">
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Edit
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Remove
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
-        
-
-        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
-
-            <TextBlock Padding="5"
-                   Text="06/30/2022">
-            </TextBlock>
-            <TextBlock Padding="5 5 30 5"
-                   Text="$23.71">
-            </TextBlock>
-            <TextBlock Padding="5 5 100 5"
-                   Text="Gas">
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Edit
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Remove
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
-
-        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
-
-            <TextBlock Padding="5"
-                   Text="06/30/2022">
-            </TextBlock>
-            <TextBlock Padding="5 5 30 5"
-                   Text="$23.71">
-            </TextBlock>
-            <TextBlock Padding="5 5 100 5"
-                   Text="Gas">
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Edit
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Remove
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
-
-        <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
-
-            <TextBlock Padding="5"
-                   Text="06/30/2022">
-            </TextBlock>
-            <TextBlock Padding="5 5 30 5"
-                   Text="$23.71">
-            </TextBlock>
-            <TextBlock Padding="5 5 100 5"
-                   Text="Gas">
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Edit
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Remove
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
-
-        <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal">
-
-            <TextBlock Padding="5"
-                   Text="06/30/2022">
-            </TextBlock>
-            <TextBlock Padding="5 5 30 5"
-                   Text="$23.71">
-            </TextBlock>
-            <TextBlock Padding="5 5 100 5"
-                   Text="Gas">
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Edit
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock Padding="5">
-                <Hyperlink>
-                    Remove
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
-        -->
-
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"
                     Grid.Column="1" Grid.Row="11" Margin="10">
-            <Button MinWidth="60" MaxWidth="60" x:Name="backButton" Click="backButton_Click"
+                <Button MinWidth="60" MaxWidth="60" x:Name="backButton" Click="backButton_Click"
                     Margin="10">BACK</Button>
-            <Button MinWidth="60" MaxWidth="60" x:Name="cancelButton" Click="cancelButton_Click"
+                <Button MinWidth="60" MaxWidth="60" x:Name="cancelButton" Click="cancelButton_Click"
                     Margin="10">CANCEL</Button>
-        </StackPanel>
-    </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>

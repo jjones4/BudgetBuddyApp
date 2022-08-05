@@ -15,9 +15,14 @@ namespace BudgetBuddy
     {
         private IConfiguration config = App.serviceProvider.GetService<IConfiguration>();
         private BudgetHomeWindow _budgetHome = new BudgetHomeWindow();
+        DateTime _startDate;
+        DateTime _endDate;
 
-        public CreateTransactionsWindow(BudgetHomeWindow budgetHome)
+        public CreateTransactionsWindow(BudgetHomeWindow budgetHome, DateTime startDate, DateTime endDate)
         {
+            _startDate = startDate;
+            _endDate = endDate;
+
             InitializeComponent();
 
             _budgetHome = budgetHome;
@@ -65,7 +70,7 @@ namespace BudgetBuddy
                 data.CreateNewLineItem(userNameTextBlock.Text, budgetNameTextBlock.Text, parsedDateTime, 
                     transactionAmount, transactionDescriptionTextBox.Text, creditOrDebit);
 
-                _budgetHome.FillOutBudgetTable(new DateTime(1901, 1, 1), new DateTime(2099, 12, 31));
+                _budgetHome.FillOutBudgetTable(_startDate, _endDate);
 
                 MessageBox.Show("Transaction Added Successfully", "Transaction Added");
                 this.Close();
